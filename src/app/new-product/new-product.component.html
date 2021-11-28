@@ -1,0 +1,205 @@
+<app-navbar></app-navbar>
+
+
+<main>
+    <section id="new_product">
+        <div class="container">
+            <div class="row">
+                <div class="header">
+                    <h1>Məhsul əlavə et</h1>
+                </div>
+            </div>
+
+                <form action="" #new_product="ngForm" (ngSubmit)="OnSubmit(name.value,description,delivery,price.value,sale,sale_price.value,sale_date.value,category.value,type.value,class.value,amount.value)">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 col-12 left_part">
+                                <div class="form_group">
+                                    <label>Məhsulun adı</label>
+                                    <input #name ngModel name="name" type="text">
+                                </div>
+                                <div class="form_group">
+                                    <label>Məhsulun açıqlaması</label>
+                                    <ckeditor [(ngModel)]="description" name = "description" [editor]="Editor"></ckeditor>
+                                </div>
+                                <div class="form_group">
+                                    <label>Çatdırılma məlumatları</label>
+                                    <ckeditor [(ngModel)]="delivery" name = "delivery" [editor]="Editor3"></ckeditor>
+                                </div>
+                                <div class="form_group">
+                                    <label>Məhsulun qiyməti</label>
+                                    <input #price ngModel name="price" type="text">
+                                </div>
+                                <div class="form_group sale_form">
+                                    <div class="row">
+                                        <div class="col-6 left">
+                                            <span>Endirim</span>
+                                            <input [(ngModel)]="sale" name="sale" type="checkbox" (change)="saleAction(sale)">
+                                        </div>
+                                        <div class="col-6 right sale_form_right">
+                                            <label>Endirim qiyməti</label>
+                                            <input #sale_price ngModel name="sale_price" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form_group sale_form_date">
+                                    <label>Endirimin başlama-bitmə tarixi</label>
+                                    <!-- <mat-form-field appearance="fill">
+                                        <input matInput [matDatepicker]="picker" #sale_beginning_date ngModel name="sale_beginning_date">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                      </mat-form-field> -->
+
+                                      <mat-form-field appearance="fill">
+                                        <mat-date-range-input [rangePicker]="picker" separator="--" ngDefaultControl #sale_date ngModel name="sale_date" >
+                                          <input matStartDate  />
+                                          <input matEndDate />
+                                        </mat-date-range-input>
+                                        <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-date-range-picker
+                                          #picker
+                                        ></mat-date-range-picker>
+                                      </mat-form-field>
+                                      
+                                </div>
+                                <!-- <div class="form_group">
+                                    <label>Endirimin bitmə tarixi</label>
+                                    <mat-form-field appearance="fill">
+                                        <input matInput [matDatepicker]="picker2"  #sale_ending_date ngModel name="sale_ending_date">
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                      </mat-form-field>
+                                </div> -->
+                            </div>
+                            <div class="col-md-6 col-12 right_part">
+                                <!-- <div class="form_group">
+                                    <label>Məhsulun rəngi</label>
+                                    <input #color ngModel name="color" type="text">
+                                </div> -->
+                                <div class="form_group">
+                                    <label>Kateqoriya</label>
+                                    <mat-form-field appearance="fill">
+                                        <mat-select #category ngModel name="category" (selectionChange)="getCategoryName(category.value)">
+                                          <mat-option *ngFor="let category of categories" [value]="category.id">
+                                            {{category.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </div>
+                                <div class="form_group">
+                                    <label>Məhsulun tipi</label>
+                                    <mat-form-field appearance="fill">
+                                        <mat-select #type ngModel name="type" (selectionChange)="getTypeName(category.value,type.value)">
+                                          <mat-option *ngFor="let type of types" [value]="type.id">
+                                            {{type.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </div>
+                                <div class="form_group">
+                                    <label>Məhsulun sinifi</label>
+                                    <mat-form-field appearance="fill">
+                                        <mat-select #class ngModel name="class">
+                                          <mat-option *ngFor="let class of classes" [value]="class.id">
+                                            {{class.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </div>
+                                <!-- <div class="form_group">
+                                    <label>Məhsulun firması</label>
+                                    <mat-form-field appearance="fill">
+                                        <mat-select #brand ngModel name="brand">
+                                          <mat-option *ngFor="let brand of brands" [value]="brand.id">
+                                            {{brand.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </div> -->
+    
+                                <div class="form_group">
+                                    <div class="row" >
+                                        <div class="col-10">
+                                            <div class="row">
+                                                <!-- <div class="col-6 left">
+                                                    <label>Məhsulun ölçüsü</label>
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-select #size_{{i}} ngModel name="size_{{i}}" (selectionChange)="addSize(i,'s',$event.value)" id="size_{{i}}" >
+                                                          <mat-option *ngFor="let size of sizes" [value]="size.id">
+                                                              <span class="main_id_holder" id="{{size.id}}"></span>
+                                                            {{size.name}}
+                                                          </mat-option>
+                                                        </mat-select>
+                                                      </mat-form-field>
+                                                </div> -->
+                                                <div class="col-6 middle">
+                                                    <label>Məhsulun miqdarı (kq)</label>
+                                                    <input ngModel #amount name="amount" type="text">
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- <div class="col-2 right">
+                                            <fa-icon style="cursor: pointer;" (click)="addMoreSize()"  [icon]="faPlus"></fa-icon>
+                                        </div> -->
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="form_group">
+                                    <label>Məhsulun şəkilləri</label>
+                                    <div class="col-lg-12 m-0">
+                                        <div class="row">
+                                            <div class="col-6 image" *ngFor="let k of photo_counter;let i=index">
+                                                <img id="photo_uploader_helper_{{i}}" (click)="addPhoto(i)" src="assets/img/helper/upload.PNG" alt="Yeni Məhsul">
+                                                <input class="photo_uploader_{{i}}" (change)="OnChange($event)" style="display: none;" type="file" name="" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 d-flex justify-content-center">
+                                <button type="submit">Məhsulu yarat</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </section>
+
+
+    <div id="my_modal">
+        <div class="background_fade"></div>
+        
+        <div class="container">
+            <div class="row" style="height: 100vh; justify-content: center;">
+                <div class="col-lg-8 d-flex justify-content-center align-items-center">
+                    <div class="my_modal">
+                        <div class="m-top">
+                            <h4>Şəkildə dəyişiklik edin   </h4>
+                        </div>
+                        <div class="m-middle" style="height: 50vh!important;">
+                            <div class="image" style="height:  50vh!important;">
+                                <image-cropper
+                            [imageChangedEvent]="imageChangedEvent"
+                            [maintainAspectRatio]="true"
+                            [aspectRatio]="579 / 652"
+                            format="jpeg"
+                            (imageCropped)="imageCropped($event)"
+                        ></image-cropper>   
+                            </div>
+                        </div>
+                        <div class="m-bottom">
+                            <button (click)="AllDone()"  class="btn">Tamamla</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</main>
+
+
+<app-footer></app-footer>

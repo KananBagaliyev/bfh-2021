@@ -1,0 +1,86 @@
+<footer>
+    <div class="container">
+        <div class="row logo_row">
+            <div class="col-lg-2 col-md-5 col-8 logo">
+                <div class="image">
+                    <img title="Revofood" src={{footer_logo}} alt="Revofood">
+                </div>
+            </div>
+        </div>
+        <div class="row upper_footer">
+            <div class="col-lg-3 col-sm-6 col-12 contact_info">
+                <h4 class="header">Əlaqə</h4>
+                <table style="width:100%">
+                    <tr>
+                      <th>Telefon:</th>
+                      <!-- <td><a target="_blank" href="tel:{{contact.Phone}}">{{contact.Phone}}</a></td> -->
+                      <td><a target="_blank" href="tel:+994516153223">+994516153223</a></td>
+                    </tr>
+                    <tr>
+                      <th>Email:</th>
+                      <!-- <td><a target="_blank" href="mailto:{{contact.Email}}">{{contact.Email}}</a></td> -->
+                      <td><a target="_blank" href="mailto:revofood@gmail.com">revofood@gmail.com</a></td>
+                    </tr>
+                    <tr>
+                      <th>Ünvan:</th>
+                      <!-- <td>{{contact.Address}}</td> -->
+                      <td>Bakı, Azərbaycan</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 about_us">
+                <h4 class="header">Haqqımızda</h4>
+                <ul>
+                    <li><a [routerLink]="'/biz-kimik'">Biz kimik?</a></li>
+                    <li><a [routerLink]="'/odenis-catdirilma'">Ödəniş və Çatdırılma</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 navigation">
+                <h4 class="header">Naviqasiya</h4>
+                <ul *ngIf="login_status">
+                    <li><a *ngIf="user.seller" [routerLink]="'/idareetme-paneli'">Qeydiyyat</a></li>
+                    <li><a *ngIf="user.seller" [routerLink]="'/idareetme-paneli'">Hesabım</a></li>
+                    <li><a *ngIf="!user.seller" [routerLink]="'/hesab'">Qeydiyyat</a></li>
+                    <li><a *ngIf="!user.seller" [routerLink]="'/hesab'">Hesabım</a></li>
+                    <li><a [routerLink]="'/sebet'">Səbətim</a></li>
+                </ul>
+                <ul *ngIf="!login_status">
+                    <li><a [routerLink]="'/hesab/qeydiyyat'">Qeydiyyat</a></li>
+                    <li><a [routerLink]="'/hesab/qeydiyyat'">Hesabım</a></li>
+                    <li><a [routerLink]="'/hesab/qeydiyyat'">Səbətim</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 mobile_links">
+                <ul>
+                    <!-- <li><a target="_blank" href={{contact.Ios}}><fa-icon [icon]="faAppStoreIos"></fa-icon></a></li>
+                    <li><a target="_blank" href={{contact.Android}}><fa-icon [icon]="faAndroid"></fa-icon></a></li> -->
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <li><h6>Developed by <a href="https://istechlal.com/" target="_blank">Istechlal</a></h6></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row lower_footer align-items-center">
+            <!-- <div class="col-md-4 col-12">
+                <div class="payment">
+                    <img src="assets/img/helper/payment.png" alt="">
+                </div>
+            </div> -->
+            <div class="col-md-6 col-12 copyright">
+                <h6>© Revofood - Bütün hüquqlar qorunur</h6>
+            </div>
+            <div class="offset-md-2 col-md-4 col-12 social_media">
+                <ul>
+                    <li><a target="_blank" href={{contact.Facebook}}><fa-icon [icon]="faFacebook"></fa-icon></a></li>
+                    <li><a target="_blank" href={{contact.Twitter}}><fa-icon [icon]="faTwitter"></fa-icon></a></li>
+                    <li><a target="_blank" href={{contact.Instagram}}><fa-icon [icon]="faInstagram"></fa-icon></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

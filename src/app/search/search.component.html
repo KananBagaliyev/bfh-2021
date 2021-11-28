@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+
+<section id="search">
+    <div class="container">
+
+        <div class="row text_row">
+            <h1 class="text">Axtarış nətİcələrİ</h1>
+        </div>
+
+        <div style="padding-top: 50px;" class="row loading_spinner justify-content-center">
+            <mat-spinner [diameter]="64" style="stroke: black;" ></mat-spinner>
+        </div>
+
+        <div class="row search_products" >
+            <app-single-product *ngIf="products.length>0;else elseBlock" [column]="'col-lg-3 col-sm-6 col-6'" [products]="products"></app-single-product>
+            <ng-template #elseBlock>
+                <h3 style="text-align: center; font-weight: 700; margin-top: 50px;" class="text not_found">Axtarışa uyğun nəticə tapılmadı</h3>
+            </ng-template>
+        </div>
+
+        
+
+        <div class="row justify-content-center search_pagination" *ngIf="length>18 && products.length<length">
+            <button (click)="getResult(keyword,count)">Daha çox göstər</button>
+        </div>
+        
+    </div>
+</section>
+
+<app-footer></app-footer>

@@ -1,0 +1,131 @@
+<app-navbar></app-navbar>
+
+<main>
+    <section id="checkout_status_bar">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-12">
+                    <div class="steps">
+                        <h3 class="passed"><a [routerLink]="'/sebet'">1. Səbət</a></h3>
+                        <span class="passed_span"><fa-icon [icon]="faChevronRight"></fa-icon></span>
+                        <h3 class="active"><a style="cursor: pointer;">2. Sifariş çıxarışı</a></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 forms">
+                    <div class="header">
+                        <h3 class="title">Ödəmə məlumatları</h3>
+                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-6 form_group">
+                                <label>Ad *</label>
+                                <input disabled [(ngModel)]="current_user.first_name" name="first_name" type="text">
+                            </div>
+                            <div class="col-lg-6 form_group">
+                                <label for="">Soyad *</label>
+                                <input disabled [(ngModel)]="current_user.last_name" name="last_name" type="text">
+                            </div>
+                            <div class="col-lg-12 form_group">
+                                <label for="">Email *</label>
+                                <input disabled [(ngModel)]="current_user.email" name="email" type="text">
+                            </div>
+                            
+                            <div class="col-lg-6 form_group">
+                                <label for="">Telefon *</label>
+                                <input disabled [(ngModel)]="current_user.phone" name="phone" type="text">
+                            </div>
+                            <div class="col-lg-6 form_group">
+                                <label for="">Poçt kodu *</label>
+                                <input disabled [(ngModel)]="current_user.postal_code" name="postal_code" type="text">
+                            </div>
+                            <div class="col-lg-12 form_group">
+                                <label for="">Şəhər *</label>
+                                <input disabled [(ngModel)]="current_user.city" name="city" type="text">
+                            </div>
+                            <div class="col-lg-12 form_group">
+                                <label for="">Rayon *</label>
+                                <input disabled [(ngModel)]="current_user.rayon" name="village" type="text">
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div id="map1"></div>
+                            </div>
+                            <!-- <div class="col-lg-12 form_group_checkbox">
+                                <input type="checkbox">
+                                <label for="">Ünvanı dəyiş</label>
+                            </div> -->
+
+                            <!-- <div class="col-lg-12 mt-5">
+                                <div class="header">
+                                    <h3 class="title">Additional information</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 form_group">
+                                <label for="">Order notes</label>
+                                <textarea name="" id="" cols="30" rows="5"></textarea>
+                            </div> -->
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4 sidebar">
+                    <div class="header">
+                        <h3 class="title">Sizin sifarişiniz</h3>
+                    </div>
+                    <div class="sidebar_content">
+                        <div class="header">
+                            <p>Məhsullar</p>
+                        </div>
+                        <div class="products">
+                            <ul>
+                                <li *ngFor="let product of cart_products">
+                                    <a [routerLink]="'/mehsul/'+product.product.slug" class="product_and_count"><span>{{product.product.name}}</span>&nbsp; × {{product.quantity}} kq</a>
+                                    <p class="price">₼ {{product.price}}</p>
+                                </li>
+                                <!-- <li>
+                                    <p class="product_and_count">Beige knitted shoes × 1</p>
+                                    <p class="price">₼ 42.00</p>
+                                </li>
+                                <li>
+                                    <p class="product_and_count">Beige knitted shoes × 1</p>
+                                    <p class="price">₼ 42.00</p>
+                                </li> -->
+                            </ul>
+                        </div>
+
+                        <div class="total">
+                            <p class="subheader">Ümumi məbləğ</p>
+                            <p class="price">₼ {{cart.sub_total}}</p>
+                        </div>
+
+                        <div class="applied_coupon">
+                            <p class="subheader">Promokod:&nbsp;</p>
+                            <p class="subcontent" *ngIf="cart.coupon">{{cart.coupon.code}}</p>
+                        </div>
+
+                        <div class="total">
+                            <p class="subheader">Yekun məbləğ</p>
+                            <p class="price">₼ {{cart.sub_total_after_cart}}</p>
+                        </div>
+
+                        <div class="button">
+                            <a class="btn" style="cursor: pointer;" (click)="ConfirmPayment()">Ödənişi tamamla</a>
+                            <a class="btn change_basics" [routerLink]="'/idareetme-paneli/satici-melumati'" *ngIf="seller_state">Ödəmə məlumatlarını dəyiş</a>
+                            <a class="btn change_basics" [routerLink]="'/hesab'" *ngIf="!seller_state">Ödəmə məlumatlarını dəyiş</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<app-footer></app-footer>

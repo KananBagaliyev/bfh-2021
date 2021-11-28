@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+
+<main>
+    <section id="order_details">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 basics">
+                    <div class="order_basics">
+                        <div class="item">
+                            <p class="title">Sifariş №</p>
+                            <p class="content">{{order.id}}</p>
+                        </div>
+                        <div class="item">
+                            <p class="title">Status</p>
+                            <p class="content">{{order.shipping_status}}</p>
+                        </div>
+                        <div class="item">
+                            <p class="title">Tarix</p>
+                            <p class="content">{{order.created | date}}</p>
+                        </div>
+                        <div class="item">
+                            <p class="title">Ümumi məbləğ</p>
+                            <p class="content">₼ {{order.sub_total}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 sidebar">
+                    <div class="sidebar_content">
+                        <div class="header">
+                            <h5 class="title">Məhsullar</h5>
+                        </div>
+                        <div class="products">
+                            <ul>
+                                <li *ngFor="let product of order.items">
+                                    <a [routerLink]="'/mehsul/'+product.product_object.slug" class="product_and_count"><span>{{product.product_object.name}}</span> ({{product.size}}) × {{product.quantity}}</a>
+                                    <p class="price">₼ {{product.price}}</p>
+                                </li>
+                                <!-- <li>
+                                    <p class="product_and_count">Beige knitted shoes × 1</p>
+                                    <p class="price">₼ 42.00</p>
+                                </li>
+                                <li>
+                                    <p class="product_and_count">Beige knitted shoes × 1</p>
+                                    <p class="price">₼ 42.00</p>
+                                </li> -->
+                            </ul>
+                        </div>
+
+                        <div class="total">
+                            <p class="subheader">Ümumi məbləğ</p>
+                            <p class="price">₼ {{order.sub_total}}</p>
+                        </div>
+
+                        <div class="applied_coupon">
+                            <p class="subheader">Promokod:&nbsp;</p>
+                            <p class="subcontent" >{{order.coupon}}</p>
+                        </div>
+
+                        <div class="total">
+                            <p class="subheader">Yekun məbləğ</p>
+                            <p class="price">₼ {{order.sub_total_after_coupon}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<app-footer></app-footer>

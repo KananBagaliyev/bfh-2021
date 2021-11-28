@@ -1,0 +1,9 @@
+
+.spinner_holder{
+    margin-right: 15px;
+    display: none;
+} 
+
+.post_button ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: white;
+}

@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+
+<main>
+    <div class="container" *ngIf="loading_status">
+        <div class="row pt-5">
+            <div class="col-12" >
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="50" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center pb-5">
+            <div class="col-md-6 col-12">
+                <h3 style="font-weight: 700; text-align: center;">Email ünvanınız müvəffəqiyyətlə təsdiqləndi. Hesabınıza daxil ola bilərsiniz.</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding: 120px 0px;" *ngIf="!loading_status">
+        <div class="row pt-5">
+            <div class="col-12 d-flex justify-content-center">
+
+                <div class="sa">
+                    <div class="sa-error">
+                      <div class="sa-error-x">
+                        <div class="sa-error-left"></div>
+                        <div class="sa-error-right"></div>
+                      </div>
+                      <div class="sa-error-placeholder"></div>
+                      <div class="sa-error-fix"></div>
+                    </div>
+                  </div>                  
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center pt-5 pb-5">
+            <div class="col-md-6 col-12">
+                <h3 style="font-weight: 700; text-align: center;">Email ünvanınız təsdiqlənə bilmədi. Xahiş edirik yenidən cəhd edin.</h3>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<app-footer></app-footer>

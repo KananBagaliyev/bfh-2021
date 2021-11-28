@@ -1,0 +1,179 @@
+
+
+<app-navbar></app-navbar>
+
+
+<main>
+  <section id="slider">
+    <ngx-slick-carousel [config]="imageSlider" (afterChange)="afterChange()" (breakpoint)="breakpoint()" (beforeChange)="beforeChange()"  class="carousel">
+      <div ngxSlickItem *ngFor="let banner of banners;let i = index">
+       <div class="banner">
+         <figure>
+           <div class="image">
+             <img title="banner" src={{banner.banner_image}} alt="banner">
+            <div class="fade"></div>
+           </div>
+         </figure>
+         <div class="container banner_container">
+            <div class="col-lg-3 col-md-7 col-10 banner_content" [style.left]="banner.left?'10%':'inherit'">
+              <h4 class="title">{{banner.line_1}}</h4>
+              <h2 class="option">{{banner.line_2}}</h2>
+              <p class="description">{{banner.description}}</p>
+              <a class="button" href={{banner.button_link}}>{{banner.button_name}}</a>
+              <!-- <div class="background_color"></div> -->
+            </div>
+         </div>
+       </div>
+      </div>
+    </ngx-slick-carousel> 
+
+    
+  </section>
+
+
+  <section class="product_section" >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text">
+          <h2>Premium Məhsullar</h2>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="container premium_template">
+        <div *ngIf="premium_products.length<=4 && premium_products.length>0" class="row justify-content-center">
+  
+          <app-single-product [column]="'col-lg-3 col-sm-6 col-6'" [products]="premium_products"></app-single-product>
+        </div>
+  
+        <owl-carousel-o [options]="customOptions" *ngIf="premium_products.length>=5">
+
+          <ng-container *ngFor="let premium_product of premium_products">
+            <ng-template carouselSlide [id]="premium_product.id">
+              <div class="product_holder" style="margin: 0px 7.5px;">
+                <a class="product" [routerLink]="'/mehsul/'+premium_product.slug">
+                  <div class="image">
+                    <img title="{{premium_product.name}}" src={{premium_product.images[0].image}} alt="{{premium_product.name}}">
+                    <a (click)="AddToCart(premium_product.id,premium_product.sizes)" class="helper add_to_cart">
+                      <fa-icon [icon]="faBag"></fa-icon> 
+                    </a>
+                    <span *ngIf="premium_product.isPremium" title="Premium Məhsul" class="premium_identifier">
+                      <fa-icon [icon]="faCrown"></fa-icon> 
+                  </span>
+                  </div>
+                  <div class="about">
+                    <div class="category">
+                      <a href="">{{premium_product.category.name}}</a>
+                    </div>
+                    <div class="name">
+                      <p>{{premium_product.name.toLowerCase()}}</p>
+                    </div>
+                    <div class="price" *ngIf="premium_product.discount_state==true && (premium_product.discount_finish_date | date: 'dd/MM/yyyy').toString()< (myDate | date: 'dd/MM/yyyy').toString() && (premium_product.discount_start_date | date: 'dd/MM/yyyy').toString()<= (myDate | date: 'dd/MM/yyyy').toString() ;else elseBlock">
+                      <span class="new_price">₼ {{premium_product.discount_price}}</span>
+                      <span class="old_price">₼ {{premium_product.price}}</span>
+                    </div>
+    
+                    <ng-template #elseBlock>
+                      <div class="price">
+                        <span>₼ {{premium_product.price}}</span>
+                      </div>
+                    </ng-template>
+                    
+                  </div>
+                </a>
+              </div>
+            </ng-template>
+          </ng-container>
+      
+        </owl-carousel-o>
+        
+        <div class="row" *ngIf="premium_products.length==0">
+          <div class="col-12">
+            <h3 class="text-center mt-5" style="font-weight: 700;">Premium məhsul yoxdur</h3>
+          </div>
+        </div>
+        
+      </div>
+    
+    <div class="container">
+      <div class="row loading_spinner justify-content-center mt-5 mb-5">
+        <mat-spinner [diameter]="64" style="stroke: black;" ></mat-spinner>
+      </div>
+    </div>
+
+  </section> 
+
+  <section class="product_section best_seller"   style="margin-top: 100px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text">
+          <h2>Ən çox satanlar</h2>
+        </div>
+      </div>
+    </div>
+
+      <div class="container bestseller_template" >
+        <div class="row justify-content-center" *ngIf = "bestseller.length!=0">
+  
+          <app-single-product [column]="'col-lg-3 col-sm-6 col-6'" [products]="bestseller"></app-single-product>
+        </div>
+
+        <div class="row" *ngIf = "bestseller.length==0">
+          <div class="col-12">
+            <h3 class="text-center mt-5" style="font-weight: 700;">Ən çox satan məhsul yoxdur</h3>
+          </div>
+        </div>
+      </div>
+  
+
+   
+
+
+    <div class="container">
+      <div class="row loading_spinner justify-content-center mt-5 mb-5">
+        <mat-spinner [diameter]="64" style="stroke: black;" ></mat-spinner>
+      </div>
+    </div>
+  </section>  
+
+  <div id="my_modal" class="my_modal2">
+    <div (click)="Close()" class="background_fade"></div>
+    
+    <div class="container">
+        <div class="row" style="height: 100vh; justify-content: center;">
+            <div class="col-lg-8 d-flex justify-content-center align-items-center">
+                <div class="my_modal">
+                    <div class="m-top">
+                        <h4>Ölçü seçin</h4>
+                    </div>
+                    <div class="m-middle" style="height: 50vh!important;justify-content: center; display: flex;flex-direction: column; align-items: center;">
+                      <mat-form-field appearance="fill">
+                        <mat-select (selectionChange)="getSize($event.value.split(','))" [(ngModel)]="selectedSize">
+                          <mat-option  *ngFor="let size of selectedProductSizes" [value]="size.id+','+size.quantity">
+                            <span style="display: none;" class="max_quantity" aria-valuemax="{{size.quantity}}"></span>
+                            {{size.size.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                      <div class="counter">
+                        <button disabled class="decreament" (click)="Decrease(quantity)">-</button>
+                        <input [(ngModel)]="quantity" type="number" min="1" max="100000">
+                        <button disabled class="increament" (click)="Increase(quantity)">+</button>
+                      </div>
+                    </div>
+                    <div class="m-bottom">
+                        <button (click)="AllDone(selectedSize.split(',')[0],quantity)"  class="btn">Səbətə əlavə et</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</main>
+
+<app-footer></app-footer>
+

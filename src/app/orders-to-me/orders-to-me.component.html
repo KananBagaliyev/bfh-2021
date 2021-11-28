@@ -1,0 +1,64 @@
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 p-0">
+                <app-vertical-navbar-dashboard></app-vertical-navbar-dashboard>
+            </div>
+            
+    
+            <div class="col-lg-9">
+                <section id="my_orders">
+                    <div class="container">
+                        <div class="row">
+                            <div class="header">
+                                <h1>Sİfarİşlərİm</h1>
+                            </div>
+                        </div>
+    
+                        <div class="row loading_spinner justify-content-center mt-5">
+                            <mat-spinner [diameter]="64" style="stroke: black;" ></mat-spinner>
+                        </div>
+    
+                        <div class="row justify-content-center main_row">
+                            <div class="col-lg-12 table_container" *ngIf="orders.length!=0;else elseBlock9">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Sifariş №</th>
+                                        <th scope="col">Sifariş sahibi</th>
+                                        <th scope="col">Sifariş tarixi</th>
+                                        <th scope="col">Ümumi məbləğ</th>
+                                        <th scope="col">Çatdırılma statusu</th>
+                                        <th scope="col">Sifarişin detalları</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let order of orders;let i =index">
+                                        <th scope="row">{{order.order.id}}</th>
+                                        <td>{{order.order.first_name}} {{order.order.last_name}}</td>
+                                        <td>{{order.order.created | date}}</td>
+                                        <td>₼ {{order.order.sub_total}}</td>
+                                        <td>{{order.order.shipping_status}}</td>
+                                        <td><a [routerLink]="'/sifaris-detallari/'+order.order.id"><fa-icon [icon]="faLink"></fa-icon></a></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+    
+                            <ng-template #elseBlock9>
+                                <div class="row justify-content-center">
+                                    <h1 style="text-align: center;" class="mt-5">Axtarışa uyğun nəticə tapılmadı</h1>
+                                </div>
+                            </ng-template>
+                        </div>
+    
+                        <div class="row justify-content-center product_pagination mb-5" *ngIf="length>25 && orders.length<length">
+                            <button (click)="getMyOrders(count)">Daha çox göstər</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,99 @@
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 p-0">
+                <app-vertical-navbar-dashboard></app-vertical-navbar-dashboard>
+            </div>
+            
+    
+            <div class="col-lg-9">
+                <section id="dashboard_products">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="header">
+                                <h1>Məhsullar</h1>
+                            </div>
+                        </div>
+    
+                        <div class="row justify-content-center p-5">
+                            <div class="table_navigation">
+                                <ul>
+                                    <li (click)="getProducts(0,'All',$event)">
+                                        <p>Bütün məhsullar</p>
+                                    </li>
+                                    <li (click)="getProducts(0,'False',$event)">
+                                        <p>Qəbul gözləyən məhsullar</p>
+                                    </li>
+                                    <li (click)="getProducts(0,'True',$event)">
+                                        <p>Qəbul almış məhsullar</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+    
+                        
+    
+                        <div class="row loading_spinner justify-content-center">
+                            <mat-spinner [diameter]="64" style="stroke: black;" ></mat-spinner>
+                        </div>
+    
+                        <div class="table_content">
+                            <div class="row justify-content-center" *ngIf="products.length!=0;else elseBlock9">
+                                <div class="col-lg-12 table_container">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Məhsul adı</th>
+                                            <th scope="col">Firma</th>
+                                            <th scope="col">Kateqoriya</th>
+                                            <th scope="col">Tip</th>
+                                            <th scope="col">Sinif</th>
+                                            <th scope="col">Rəng</th>
+                                            <th scope="col">Endirimsiz Qiyməti</th>
+                                            <th scope="col">Satış Qiyməti</th>
+                                            <th scope="col">Qəbul</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr [routerLink]="'/mehsul/'+product.slug" *ngFor="let product of products;let i=index">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td><a class="name" [routerLink]="'/mehsul/'+product.slug">{{product.name}}</a></td>
+                                            <td><a [routerLink]="'/mehsul/'+product.slug">{{product.firm.name}}</a></td>
+                                            <td><a [routerLink]="'/mehsul/'+product.slug">{{product.category.name}}</a></td>
+                                            <td><a [routerLink]="'/mehsul/'+product.slug">{{product.types.name}}</a></td>
+                                            <td><a [routerLink]="'/mehsul/'+product.slug">{{product.classes.name}}</a></td>
+                                            <td><a [routerLink]="'/mehsul/'+product.slug">{{product.color}}</a></td>
+                                            <td><a [routerLink]="'/mehsul/'+product.slug">{{product.price}} ₼</a></td>
+                                            <td *ngIf="product.discount_state==true && (product.discount_finish_date | date: 'dd/MM/yyyy').toString()> (myDate | date: 'dd/MM/yyyy').toString() && (product.discount_start_date | date: 'dd/MM/yyyy').toString()<= (myDate | date: 'dd/MM/yyyy').toString() ;else elseBlock7"><a [routerLink]="'/mehsul/'+product.slug">{{product.discount_price}} ₼</a></td>
+                                            <ng-template #elseBlock7>
+                                                <td ><a [routerLink]="'/mehsul/'+product.slug">{{product.price}} ₼</a></td>
+                                            </ng-template>
+                                            <td title="Qəbul almış məhsullar" *ngIf="product.is_approved;else elseBlock"><a style="cursor: pointer;"><fa-icon class="text-success"  style="font-size: 20px;" [icon]="faCheck"></fa-icon></a></td>
+                                            <ng-template #elseBlock>
+                                                <td title="Qəbul gözləyən məhsullar"><a style="cursor: pointer;"><fa-icon style="font-size: 20px;" alt="Waiting" class="text-warning" [icon]="faSpinner"></fa-icon></a></td>
+                                            </ng-template>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      <div class="row justify-content-center product_pagination" *ngIf="length>25 && products.length<length">
+                                        <button (click)="getProducts(count,state)">Daha çox göstər</button>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <ng-template #elseBlock9>
+                                <div class="row justify-content-center">
+                                    <h1 style="text-align: center;">Axtarışa uyğun nəticə tapılmadı</h1>
+                                </div>
+                            </ng-template>
+                        </div>
+    
+                        
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>

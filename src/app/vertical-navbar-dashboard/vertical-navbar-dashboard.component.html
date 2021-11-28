@@ -1,0 +1,39 @@
+
+    <section id="vertical_navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 nav_column">
+                    <div class="offset-lg-1 col-lg-7 col-7 col-md-4 asset_column">
+                        <a [routerLink]="'/anasehife'" class="image">
+                            <img title="Revofood" src={{dashboard_logo}} alt="Revofood">
+                        </a>
+                        <div class="header">
+                            <h3>İdarəetmə Panelİ</h3>
+                        </div>
+                        <div class="navigation">
+                            <ul>
+                                <li><a [routerLink]="'/idareetme-paneli'"> <fa-icon [icon]="faChartLine"></fa-icon> Statİstİka</a></li>
+                                <li><a [routerLink]="'/idareetme-paneli/satici-melumati'"> <fa-icon [icon]="faUser"></fa-icon> Satıcı Məlumatları</a></li>
+                                <li><a [routerLink]="'/idareetme-paneli/mehsullar'"> <fa-icon [icon]="faBoxes"></fa-icon> Məhsullar</a></li>
+                                <li><a [routerLink]="'/idareetme-paneli/sifarislerim'"> <fa-icon [icon]="faTshirt"></fa-icon> Sİfarİşlərİm</a></li>
+                                <li><a [routerLink]="'/idareetme-paneli/yeni-mehsul'"> <fa-icon [icon]="faPlus"></fa-icon> Məhsul Əlavə Et</a></li>
+                                <li><a style="cursor: pointer;" (click)="LogOut()"> <fa-icon [icon]="faSignOut"></fa-icon> Çıxış</a></li>
+                            </ul>
+                        </div>
+
+                        
+                    </div>
+                    <div class="close_button"><fa-icon [icon]="faTimes"></fa-icon></div>
+                </div>
+            </div>
+
+            <div class="row mobile_assets">
+                <div class="offset-1 col-2"><div class="burger_button"></div></div>
+                <div class="offset-1 col-6 col-md-4">
+                    <div class="image">
+                    <img title="Revofood" src={{dashboard_logo}} alt="Revofood">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

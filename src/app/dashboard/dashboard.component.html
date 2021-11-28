@@ -1,0 +1,93 @@
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 p-0">
+                <app-vertical-navbar-dashboard></app-vertical-navbar-dashboard>
+            </div>
+            
+    
+            <div class="col-lg-9">
+                <section id="dashboard">
+                    <div class="container">
+                        <div class="row">
+                            <div class="header">
+                                <h1>Statİstİka</h1>
+                            </div>
+                        </div>
+    
+                        <div class="row justify-content-center" >
+                            <div class="col-lg-9 col-10 chart" *ngIf="barChartData">
+                                <div>
+                                    <canvas baseChart
+                                            [colors]="chartColors"
+                                            [datasets]="barChartData"
+                                            [labels]="barChartLabels"
+                                            [options]="barChartOptions"
+                                            [legend]="barChartLegend"
+                                            [chartType]="barChartType">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row boxes" *ngIf = "incomes">
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">Bu günün gəliri</p>
+                                    <p class="value">₼ {{incomes[0]?.today}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">Dünənin gəlirləri</p>
+                                    <p class="value">₼ {{incomes[1]?.yesterday}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">7 günün gəlirləri</p>
+                                    <p class="value">₼ {{incomes[2]?.last_one_week}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">30 günün gəlirləri</p>
+                                    <p class="value">₼ {{incomes[3]?.last_one_month}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">Bu günün satışları</p>
+                                    <p class="value"> {{sellings[0]?.today}}</p>
+                                    <p class="description">Məhsul</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">Dünənin satışları</p>
+                                    <p class="value"> {{sellings[1]?.yesterday}}</p>
+                                    <p class="description">Məhsul</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">7 günün satışları</p>
+                                    <p class="value"> {{sellings[2]?.last_one_week}}</p>
+                                    <p class="description">Məhsul</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="box">
+                                    <p class="name">30 günün satışları</p>
+                                    <p class="value"> {{sellings[3]?.last_one_month}}</p>
+                                    <p class="description">Məhsul</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+
+<main>
+
+    <section id="register">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="sign_tabs">
+                        <a class="active login_button" data-id="1" (click)="ChangeTab($event)">Daxİl Ol</a>
+                        <a data-id="2" class="register_button" (click)="ChangeTab($event)">Qeydİyyat</a>
+                    </div>
+                    <div class="sign_sides">
+                        <div data-id="1" class="login side active">
+                            <h2>Daxİl Olun</h2>
+                            <form action="" #login="ngForm" (ngSubmit)="OnSubmitLogin(email.value,pass.value)">
+                                <div class="form_group col-lg-8">
+                                    <p>E-mail ünvanı</p>
+                                    <input #email ngModel type="email" name="email" type="email" placeholder="E-mail">
+                                </div>
+                                <div class="label col-lg-8">
+                                    <p>Şifrə</p>
+                                </div>
+                                <div class="form_group col-lg-8">
+                                    <input #pass ngModel name="pass" id="password"  type="password" placeholder="Şifrə">
+                                    <fa-icon [icon] = "faEye" class="faEye" (click)="ShowPassword()"></fa-icon>
+                                    <fa-icon style="display: none;" class="faEyeSlash" (click)="ShowPassword()" [icon] = "faEyeSlash"></fa-icon>
+                                </div>
+                                <div class="col-lg-8">
+                                    <button class="post_button login_button" type="submit"> <span class="spinner_holder spinner_login"><mat-spinner [diameter]="32"  style="stroke: white;" ></mat-spinner></span> Daxİl Olun</button>
+                                </div>
+                                <div class="col-lg-8 forget_link">
+                                    <a [routerLink]="'/sifreni-unutmusam'">Şifrənizi unutmusunuz?</a>
+                                </div>
+                            </form>
+
+                            <!-- <div class="col-lg-8 social_login">
+                                <a #loginRef><fa-icon [icon]="faGoogle"></fa-icon> <span>oogle</span></a>
+                                <a (click)="FBLogin()"><fa-icon [icon]="faFacebook"></fa-icon> <span>acebook</span></a>
+                            </div> -->
+                        </div>
+                        <div data-id="2" class="register side">
+                            <h2>Qeydİyyatdan Keçİn</h2>
+                            <form #register="ngForm" (ngSubmit)="OnSubmit(name.value,surname.value,email_r.value,telephone.value,pass_r.value,confirm_pass.value)">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="form_group col-lg-6">
+                                            <p>Ad</p>
+                                            <input #name ngModel name="name" type="text" placeholder="Ad">
+                                        </div>
+                                        <div class="form_group col-lg-6">
+                                            <p>Soyad</p>
+                                            <input #surname ngModel name="surname" type="text" placeholder="Soyad">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form_group col-lg-8">
+                                    <p>E-mail ünvanı</p>
+                                    <input #email_r ngModel type="email" name="email_r" placeholder="E-mail">
+                                </div>
+                                <div class="form_group col-lg-8">
+                                    <p>Telefon</p>
+                                    <input #telephone ngModel type="tel" name="telephone" placeholder="Telefon">
+                                </div>
+                                <div class="form_group col-lg-8">
+                                    <p>Şifrə</p>
+                                    <input #pass_r ngModel id="password" name="pass_r"  type="password" placeholder="Şifrə">
+                                </div>
+                                <div class="form_group col-lg-8">
+                                    <p>Şifrənin təkrarı</p>
+                                    <input #confirm_pass ngModel id="password" name="confirm_pass"  type="password" placeholder="Şifrənin təkrarı">
+                                </div>
+                                <div class="col-lg-8">
+                                    <button class="post_button register_button"  type="submit"><span class="spinner_holder spinner_register"><mat-spinner [diameter]="32" style="stroke: white;" ></mat-spinner></span>Qeydİyyatdan Keçİn</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<app-footer></app-footer>

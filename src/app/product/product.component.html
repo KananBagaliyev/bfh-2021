@@ -1,0 +1,217 @@
+<app-navbar></app-navbar>
+
+<main>
+    <section id="product_detail" *ngIf="product">
+        <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-2 order-lg-1 order-2">
+                <div class="col-lg-10 ">
+                  <ngx-slick-carousel [config]="thumbnailsSlider"  class="carousel thumbs">
+                    <div ngxSlickItem *ngFor="let slide of product.images;let i = index">
+                      
+                     <div class="banner">
+                       <figure>
+                         <div class="image">
+                           <img title="{{product.name}}" src={{slide.image}} alt="{{product.name}}">
+         
+                         </div>
+                       </figure>
+                       <div class="container"></div>
+                     </div>
+                    </div>
+                  </ngx-slick-carousel> 
+                </div>
+              </div>
+                <div class="col-lg-5 col-8 order-lg-2 order-1">
+  
+                   <ngx-slick-carousel [config]="imagesSlider"  class="carousel feedback">
+                     <div ngxSlickItem *ngFor="let slide of product.images;let i = index">
+                      <div class="banner">
+                        <figure>
+                          <div class="image">
+                            <lib-ngx-image-zoom title="{{product.name}}" alt="{{product.name}}" style="cursor: crosshair;"
+                              [thumbImage]=slide.image
+                              [fullImage]=slide.image
+                              [magnification]=1.3
+                          ></lib-ngx-image-zoom>
+                          </div>
+                        </figure>
+                        <div class="container"></div>
+                      </div>
+                     </div>
+                   </ngx-slick-carousel>
+
+                   
+
+                </div>
+                <div class="col-lg-5 order-3  about">
+                    <div class="name">
+                        <h1> <span title="Premium Məhsul" *ngIf="product.isPremium"><fa-icon [icon]="faCrown"></fa-icon></span> {{product.name}}</h1>
+                    </div>
+                    <div class="brand">
+                      <span>İstehsalçı: </span> &nbsp;&nbsp;
+                      <p>{{producer}}</p>
+                    </div>
+                    <div class="price" *ngIf="product.discount_state==true && (product.discount_finish_date | date: 'dd/MM/yyyy').toString()> (myDate | date: 'dd/MM/yyyy').toString() && (product.discount_start_date | date: 'dd/MM/yyyy').toString()<= (myDate | date: 'dd/MM/yyyy').toString() ;else elseBlock">
+                      <h2 class="new_price">₼ {{product.discount_price}}</h2>
+                      <h2 class="old_price">₼ {{product.price}}</h2>
+                  </div>
+      
+                  <ng-template #elseBlock>
+                      <div class="price">
+                      <h2>₼ {{product.price}}</h2>
+                      </div>
+                  </ng-template>
+                    <div class="description">
+                        <p [innerHtml]="product.description"></p>
+                    </div>
+                    <!-- <div class="size">
+                      <p>Ölçü:</p>
+                      
+                      <mat-select  *ngIf="product.sizes.length>5;else elseBlock2" placeholder="Ölçü" [class.revofood-angular-theme]>
+                          <mat-option (click)="getProperSize(s.id,s.quantity,$event)" *ngFor="let s of product.sizes" [value]="s">
+                              {{s.size.name}}
+                            </mat-option>
+                      </mat-select>
+
+                      <ng-template #elseBlock2>
+                        <span (click)="getProperSize(s.id,s.quantity,$event)" class="dimension" *ngFor="let s of product.sizes">{{s.size.name}}</span>
+                      </ng-template>
+                    </div> -->
+                    <hr>
+                    <div class="quantity">
+                      <p>Miqdarı:</p>
+                      <div class="counter">
+                        <button class="decreament" (click)="Decrease(quantity)">-</button>
+                        <input (keyup)="UpdateAmount(quantity)" [(ngModel)]="quantity" name="quantity" value="{{quantity}}" type="number" min="1" max="100000">
+                        <button class="increament" (click)="Increase(quantity)">+</button>
+                      </div>
+                      
+                      <button class="buy_button" (click)="AddToCart(product.id,quantity)">
+                        <fa-icon [icon]="faBag"></fa-icon> <a>Səbətə əlavə et</a>
+                      </button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text">
+              <h2>Məhsul Haqqında</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 about_description">
+              <p [innerHtml]="product.description"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 shipping_text">
+              <h2>Çatdırılma Şərtlərİ</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 shipping_description">
+              <p [innerHtml]="product.shipping_info"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 shipping_text">
+              <h2>Rəylər</h2>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="user_status" class="container">
+          <div class="row">
+            <div class="col-lg-12 review_section">
+              <div class="col-lg-12 publish_review">
+                <form action="" #new_product="ngForm" action="" (ngSubmit)="OnSubmitReview(reviewText.value)">
+                  <textarea #reviewText ngModel name="reviewText" type="text"></textarea>
+                  <div class="publish_rw">
+                    <ngb-rating [max]="5" [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly"></ngb-rating>
+                    <button>Dərc et</button>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!user_status" class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <h2 style="text-align: center;">Rəy bildirmək üçün hesabınıza daxil olun</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 all_reviews">
+              <div class="single_review" *ngFor="let review of reviews;let i = index">
+                <div style="font-weight: 700; font-size: 20px; margin-top: 15px;">{{review.author_name}}</div>
+                <div style="margin-top: 15px;">
+                  <ngb-rating [max]="5" [(rate)]=review.review_point></ngb-rating>
+                  <p>{{review.review_text}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- <section class="product_section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text">
+            <h2>Bənzər Məhsullar</h2>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 col-sm-6 col-9">
+            <div class="product">
+              <div class="image">
+                <img src="assets/img/products/product.jpg" alt="">
+                <a href="" class="helper add_to_cart">
+                  <fa-icon [icon]="faBag"></fa-icon> 
+                </a>
+              </div>
+              <div class="about">
+                <div class="category">
+                  <a href="">Kateqoriya</a>
+                </div>
+                <div class="name">
+                  <p>Məhsul</p>
+                </div>
+                <div class="price">
+                  <span>₼ 42.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>   -->
+
+    
+</main>
+
+<app-footer></app-footer>
+

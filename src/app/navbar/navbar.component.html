@@ -1,0 +1,166 @@
+<header>
+    <nav>
+        <div class="container desktop_navbar">
+            <div class="row upper_nav">
+                <div class="col-lg-2 logo">
+                    <div class="image">
+                        <a [routerLink]="'/anasehife'"><img title="Revofood" src={{navbar_logo}} alt="Revofood"></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 search">
+                    <input placeholder="Axtarış et" type="text" #search (keyup.enter)="SearchRedirect(search.value)">
+                    <a [routerLink]="'/axtaris/'+search.value"><fa-icon [icon]="faSearch"></fa-icon></a>
+                </div>
+                <div class="col-lg-3 account">
+                    <div class="row account_row">
+                        <div class="login">
+                            <div class="row">
+                                <fa-icon [icon]="faUser"></fa-icon>
+                                <a *ngIf="!login_status;else elseBlock" [routerLink]="'/hesab/qeydiyyat'">Daxil Ol</a>
+                                <ng-template #elseBlock>
+                                    <a *ngIf="user && !user.seller" [routerLink]="'/hesab'">{{user.first_name}} {{user.last_name}}</a>
+                                    <a *ngIf="user && user.seller" [routerLink]="'/idareetme-paneli'">{{user.first_name}} {{user.last_name}}</a>
+
+                                </ng-template>
+                            </div>
+                        </div>
+    
+                        <!-- <span class="divider"></span> -->
+                        <div class="cart" *ngIf="login_status">
+                            <div class="cart_toggle">
+                                <a >Səbətim /</a>
+                                <span class="total" *ngIf="cart.sub_total!=undefined">₼ {{cart.sub_total}}</span>
+                                <span class="total" *ngIf="cart.sub_total==undefined">₼ 0</span>
+                                <fa-icon [icon]="faShoppingBag"></fa-icon>
+                            </div>
+
+                            <div class="dropdown_box">
+                                <div class="cart_header">
+                                    <span class="cart_total_count">{{cart_products.length}} məhsul</span>
+                                </div>
+                                <div class="cart_content">
+                                    <div class="cart_product" *ngFor="let item of cart_products;let i=index"> 
+                                        <div class="product_detail">
+                                            <a class="product_name" [routerLink]="'/mehsul/'+item.product.slug">{{item.product.name}}</a>
+                                            <div class="price_box">
+                                                <span class="product_quantity">{{item.quantity}} kq</span>
+                                                <span class="product_price">₼ {{item.price}}</span>
+                                            </div>
+                                        </div>
+                                        <figure class="product_image">
+                                            <a href="">
+                                                <img title="{{item.product.name}}" src={{item.product.images[0].image}} alt="{{item.product.name}}">
+                                            </a>
+                                            <button (click)="removeCartItem(item.id)" class="remove"><fa-icon [icon]="faTimes"></fa-icon></button>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="cart_total">
+                                    <label>Ümumi məbləğ:</label>
+                                    <span class="price">₼ {{cart.sub_total}}</span>
+                                </div>
+                                <div class="cart_action">
+                                    <a *ngIf="login_status" [routerLink]="'/sebet'">Səbətə keçid</a>
+                                    <a *ngIf="!login_status" [routerLink]="'/hesab/qeydiyyat'">Səbətə keçid</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row lower_nav">
+                <div class="col-lg-12 navigation">
+                    <ul class="menu">
+                        <li [ngClass]="{'active':route=='anasehife'|| route==''}"><a class="cat_name" [routerLink]="'/anasehife'">Ana Səhifə</a></li>
+                        <li [ngClass]="{'active':route.includes(category.slug)}" class="dropdownx_{{k}} custom_dropdown"  *ngFor="let category of categories;let k =index" >
+                            <a class="cat_name">{{category.name}}</a>
+                            <div class="sub_nav" *ngIf="category.types.length!=0">
+                                <div class="sub_nav_content">
+                                    <li class="type_name" *ngFor="let type of category.types;let i =index">
+                                        <h5>{{type.name}}</h5>
+
+                                        <ul class="class" *ngFor="let class of category.types[i].classes">
+                                            
+                                            <li *ngIf="class.category.includes(category.id)"><a [routerLink]="'/mehsullar/'+category.slug+'/'+type.slug+'/'+class.slug">{{class.name}}</a></li>
+                                            
+                                        </ul>
+                                    </li>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- <li><a [routerLink]="'/products'">Qadınlar</a></li> -->
+                        <!-- <li><a [routerLink]="'/account/register'">Premium</a></li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mobile_navbar">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-2 icon">
+                    <div class="burger_button" (click)="OpenNav()"></div>
+                </div>
+                <div class="col-6 col-md-4 logo">
+                   <a [routerLink]="'/anasehife'" class="image">
+                        <img title="Revofood" src={{navbar_logo}} alt="Revofood">
+                   </a>
+                </div>
+                <div class="col-2 cart">
+                    <a [routerLink]="'/sebet'" *ngIf="login_status"><fa-icon [icon]="faShoppingBag"></fa-icon></a>
+                    <a [routerLink]="'/hesab/qeydiyyat'" *ngIf="!login_status"><fa-icon [icon]="faShoppingBag"></fa-icon></a>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="cotainer-fluid navbar_wrapper">
+            <div class="row">
+                
+                <a class="close_mobile_navbar" (click)="CloseNav()"><fa-icon [icon]="faTimes"></fa-icon></a>
+                <div class="wrapper_container">
+                    <ul>
+                        <form action="">
+                            <input type="text" placeholder="Axtar">
+                            <button type="submit"><fa-icon [icon]="faSearch"></fa-icon></button>
+                        </form>
+                        <li class="active"><a [routerLink]="'/anasehife'">Ana Səhifə</a></li>
+                        <li class="dropdownx_{{k}} custom_dropdown_mobile"  *ngFor="let category of categories;let k =index" >
+                            <div class="header_part" (click)="mobileTypeAnimation($event)">
+                                <p>{{category.name}}</p>
+                                <span *ngIf="category.types.length!=0"><fa-icon [icon]="faChevronDown" style="color:white"></fa-icon></span>
+                            </div>
+                            <div class="sub_nav" *ngIf="category.types.length!=0">
+                                <div class="sub_nav_content">
+                                    <li class="type_name" *ngFor="let type of category.types;let i =index">
+                                        <div class="header_part" (click)="mobileClassAnimation($event)">
+                                            <h5>{{type.name}}</h5>
+                                            <span *ngIf="category.types[i].classes.length!=0"><fa-icon [icon]="faChevronDown" style="color:white"></fa-icon></span>
+                                        </div>
+
+                                        <ul class="class" *ngFor="let class of category.types[i].classes">
+                                            
+                                            <!-- <span>{{category.id}} {{class.category.includes(1)}} {{class.name}}</span> -->
+                                            <li *ngIf="class.category.includes(category.id)"><a (click)="BodyOverflow()" [routerLink]="'/mehsullar/'+category.slug+'/'+type.slug+'/'+class.slug">{{class.name}}</a></li>
+                                            <!-- <span *ngFor="let c of class.category">{{c}}</span> -->
+                                        </ul>
+                                    </li>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a *ngIf="!login_status;else elseBlock" [routerLink]="'/hesab/qeydiyyat'">Daxil Ol</a>
+                            <ng-template #elseBlock>
+                                <a *ngIf="user && !user.seller" [routerLink]="'/hesab'">{{user.first_name}} {{user.last_name}}</a>
+                                <a *ngIf="user && user.seller" [routerLink]="'/idareetme-paneli'">{{user.first_name}} {{user.last_name}}</a>
+
+                            </ng-template>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg_fade"></div>
+            </div>
+        </div>
+    </nav>
+</header>

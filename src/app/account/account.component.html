@@ -1,0 +1,97 @@
+<main>
+    <div class="row">
+        
+        
+
+        <div class="col-lg-12">
+            <section id="account">
+                <div class="container">
+                    <div class="row">
+                        <div class="header">
+                            <h1>Hesab Məlumatları</h1>
+                        </div>
+                    </div>
+                    <div class="row data_row">
+                        <div class="col-lg-6 left">
+                            <div class="row justify-content-center">
+                                <h5>Şəxsi məlumatlar</h5>
+                            </div>
+                            <form action="" #basicData = "ngForm" (ngSubmit)="ChangeBasics(basicData.value)">
+                                <div class="form_group">
+                                    <label for="">Ad*</label>
+                                    <input [ngModel]="current_user.first_name" name="name" type="text">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Soyad*</label>
+                                    <input [ngModel]="current_user.last_name" name="surname" type="text">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Telefon</label>
+                                    <input [ngModel]="current_user.phone" name="phone" type="tel">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Email*</label>
+                                    <input [ngModel]="current_user.email" name="email" type="email">
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <button type="submit">Təsdiqlə</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 right">
+                            <div class="row justify-content-center">
+                                <h5>Şifrəni dəyişmək</h5>
+                            </div>
+                            <form action="" #changePass = "ngForm" (ngSubmit)="ChangePass(changePass.value)"> 
+                                <div class="form_group">
+                                    <label for="">İndiki şifrə</label>
+                                    <input type="password" ngModel #old_password name="old_password">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Yeni şifrə</label>
+                                    <input type="password" ngModel #new_password1 name="new_password1">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Yeni şifrə(təkrar)</label>
+                                    <input type="password" ngModel #new_password2 name="new_password2">
+                                </div>
+                                <div class="row justify-content-center">
+                                    <button type="submit">Dəyiş</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row justify-content-center m-5">
+                                <h5>Ünvan məlumatları</h5>
+                            </div>
+                            <form action="" class="address_form" #addressData = "ngForm" (ngSubmit)="ChangeAddress(addressData.value)">
+                                <div class="form_group">
+                                    <label for="">Şəhər</label>
+                                    <input [ngModel]="current_user.city" name="city" type="text">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Rayon</label>
+                                    <input [ngModel]="current_user.rayon" name="village" type="text">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Poçt kodu</label>
+                                    <input [ngModel]="current_user.postal_code" name="postal_code" type="text">
+                                </div>
+                                <div class="form_group">
+                                    <label for="">Ünvan</label>
+                                    
+                                     <div id="map"></div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <button type="submit">Təsdiqlə</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </section>
+        </div>
+    </div>
+</main>

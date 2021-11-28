@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    
+    <div class="row justify-content-center">
+        <div  class="{{column}}" *ngFor="let product of products">
+            <div class="product_holder">
+                <a class="product" [routerLink]="'/mehsul/'+product.slug">
+                    <div class="image">
+                    <img title="{{product.name}}" src={{product.images[0].image}} alt="{{product.name}}">
+                    <a (click)="AddToCart(product.id,product.sizes)" class="helper add_to_cart">
+                        <fa-icon [icon]="faBag"></fa-icon> 
+                    </a>
+
+                    <span *ngIf="product.isPremium" title="Premium Məhsul" class="premium_identifier">
+                        <fa-icon [icon]="faCrown"></fa-icon> 
+                    </span>
+                    </div>
+                    <div class="about">
+                    <div class="category">
+                        <a href="">{{product.category.name}}</a>
+                    </div>
+                    <div class="name">
+                        <p>{{product.name}}</p>
+                    </div>
+                    <div class="price" *ngIf="product.discount_state==true && (product.discount_finish_date | date: 'dd/MM/yyyy').toString()> (myDate | date: 'dd/MM/yyyy').toString() && (product.discount_start_date | date: 'dd/MM/yyyy').toString()<= (myDate | date: 'dd/MM/yyyy').toString() ;else elseBlock">
+                        <span class="new_price">₼ {{product.discount_price}}</span>
+                        <span class="old_price">₼ {{product.price}}</span>
+                    </div>
+        
+                    <ng-template #elseBlock>
+                        <div class="price">
+                        <span>₼ {{product.price}}</span>
+                        </div>
+                    </ng-template>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="my_modal">
+        <div (click)="Close()" class="background_fade"></div>
+        
+        <div class="container">
+            <div class="row" style="height: 100vh; justify-content: center;">
+                <div class="col-lg-8 d-flex justify-content-center align-items-center">
+                    <div class="my_modal">
+                        <div class="m-top">
+                            <h4>Ölçü seçin</h4>
+                        </div>
+                        <div class="m-middle" style="height: 50vh!important;justify-content: center; display: flex;flex-direction: column; align-items: center;">
+                        <mat-form-field appearance="fill">
+                            <mat-select (selectionChange)="getSize($event.value.split(','))" [(ngModel)]="selectedSize">
+                            <mat-option  *ngFor="let size of selectedProductSizes" [value]="size.id+','+size.quantity">
+                                <span style="display: none;" class="max_quantity" aria-valuemax="{{size.quantity}}"></span>
+                                {{size.size.name}}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div class="counter">
+                            <button disabled class="decreament" (click)="Decrease(quantity)">-</button>
+                            <input [(ngModel)]="quantity" type="number" min="1" max="100000">
+                            <button disabled class="increament" (click)="Increase(quantity)">+</button>
+                        </div>
+                        </div>
+                        <div class="m-bottom">
+                            <button (click)="AllDone(selectedSize.split(',')[0],quantity)"  class="btn">Səbətə əlavə et</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
