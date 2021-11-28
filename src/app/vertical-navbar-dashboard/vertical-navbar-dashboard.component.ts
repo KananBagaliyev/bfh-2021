@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {faUser} from '@fortawesome/free-regular-svg-icons'
-import {faBoxes, faSignOutAlt, faShoppingCart, faPlus, faTimes, faChartLine, faTshirt} from '@fortawesome/free-solid-svg-icons'
+import {faBoxes, faSignOutAlt, faShoppingCart, faPlus, faTimes, faChartLine, faCarrot} from '@fortawesome/free-solid-svg-icons'
 import * as $ from 'jquery';
 import { AuthenticationService } from '../services/authentication.service';
 import { LogoService } from '../services/logo.service';
@@ -21,7 +21,7 @@ export class VerticalNavbarDashboardComponent implements OnInit {
   faPlus = faPlus;
   faChartLine = faChartLine;
   faTimes = faTimes;
-  faTshirt = faTshirt;
+  faTshirt = faCarrot;
   dashboard_logo:string = '';
 
   constructor(private logo:LogoService, private http:HttpClient, private auth:AuthenticationService, private router:Router) { }

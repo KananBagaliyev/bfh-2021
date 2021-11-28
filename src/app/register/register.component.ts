@@ -28,112 +28,112 @@ export class RegisterComponent implements OnInit {
     this.toastr.toastrConfig.preventDuplicates = true;
   }
 
-  @ViewChild('loginRef', {static: true }) loginElement: ElementRef;
+  // @ViewChild('loginRef', {static: true }) loginElement: ElementRef;
   auth2:any;
   ngOnInit(): void {
 
-    this.FBFunction();
-    this.GoogleFunction();
+    // this.FBFunction();
+    // this.GoogleFunction();
   }
 
 
-  FBFunction(){
-    (window as any).fbAsyncInit = function() {
-      FB.init({
-        appId      : '887177195511508',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.1'
-      });
+  // FBFunction(){
+  //   (window as any).fbAsyncInit = function() {
+  //     FB.init({
+  //       appId      : '887177195511508',
+  //       cookie     : true,
+  //       xfbml      : true,
+  //       version    : 'v3.1'
+  //     });
         
-      FB.AppEvents.logPageView();   
+  //     FB.AppEvents.logPageView();   
         
-    };
+  //   };
   
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  }
+  //   (function(d, s, id){
+  //      var js, fjs = d.getElementsByTagName(s)[0];
+  //      if (d.getElementById(id)) {return;}
+  //      js = d.createElement(s); js.id = id;
+  //      js.src = "https://connect.facebook.net/en_US/sdk.js";
+  //      fjs.parentNode.insertBefore(js, fjs);
+  //    }(document, 'script', 'facebook-jssdk'));
+  // }
 
-  GoogleFunction(){
-    window['googleSDKLoaded'] = () => {
-      window['gapi'].load('auth2', () => {
-        this.auth2 = window['gapi'].auth2.init({
-          client_id: '544484661356-u4u601kfl46e0j3s7o2r779c5h4p65e1.apps.googleusercontent.com',
-          cookie_policy: 'single_host_origin',
-          scope: 'profile email'
-        });
-        this.GoogleLogin();
-      });
-    }
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'google-jssdk'));
-  }
+  // GoogleFunction(){
+  //   window['googleSDKLoaded'] = () => {
+  //     window['gapi'].load('auth2', () => {
+  //       this.auth2 = window['gapi'].auth2.init({
+  //         client_id: '544484661356-u4u601kfl46e0j3s7o2r779c5h4p65e1.apps.googleusercontent.com',
+  //         cookie_policy: 'single_host_origin',
+  //         scope: 'profile email'
+  //       });
+  //       this.GoogleLogin();
+  //     });
+  //   }
+  //   (function(d, s, id){
+  //     var js, fjs = d.getElementsByTagName(s)[0];
+  //     if (d.getElementById(id)) {return;}
+  //     js = d.createElement(s); js.id = id;
+  //     js.src = "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
+  //     fjs.parentNode.insertBefore(js, fjs);
+  //   }(document, 'script', 'google-jssdk'));
+  // }
 
-  FBLogin(){
+  // FBLogin(){
     
-    FB.login((response)=>
-        {
-          if (response.authResponse)
-          {
+  //   FB.login((response)=>
+  //       {
+  //         if (response.authResponse)
+  //         {
             
-            var data = {
-              access_token:response.authResponse.accessToken,
-              uid:response.authResponse.userID
-            }
+  //           var data = {
+  //             access_token:response.authResponse.accessToken,
+  //             uid:response.authResponse.userID
+  //           }
 
-            this.http.post(this.domain.url+'api/rest-auth/facebook/',data).subscribe((res:any)=>{
+  //           this.http.post(this.domain.url+'api/rest-auth/facebook/',data).subscribe((res:any)=>{
               
-              localStorage.setItem('user',res.key)
-              this.router.navigate(['']).then(()=>{
-                location.reload();
-              })
-            },(err:HttpErrorResponse)=>{
-              if(err.error.non_field_errors){
-                Swal.fire('Xəta', err.error.non_field_errors[0], 'error')
-              }
-            })
-          }
-          else
-          {
-            this.toastr.error('Kiçik xəta baş verdi. Xahiş edirik biraz sonra yenidən sınayın.', 'Xəta');
-          }
-    }, {
-      scope: 'email', 
-      return_scopes: true
-      });
-  }
+  //             localStorage.setItem('user',res.key)
+  //             this.router.navigate(['']).then(()=>{
+  //               location.reload();
+  //             })
+  //           },(err:HttpErrorResponse)=>{
+  //             if(err.error.non_field_errors){
+  //               Swal.fire('Xəta', err.error.non_field_errors[0], 'error')
+  //             }
+  //           })
+  //         }
+  //         else
+  //         {
+  //           this.toastr.error('Kiçik xəta baş verdi. Xahiş edirik biraz sonra yenidən sınayın.', 'Xəta');
+  //         }
+  //   }, {
+  //     scope: 'email', 
+  //     return_scopes: true
+  //     });
+  // }
 
-  GoogleLogin(){
-    this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
-      (googleUser) => {
+  // GoogleLogin(){
+  //   this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
+  //     (googleUser) => {
         
-        var data = {
-          access_token:googleUser.getAuthResponse().access_token
-        }
-        this.http.post(this.domain.url+'api/rest-auth/google/',data).subscribe((res:any)=>{
-          localStorage.setItem('user',res.key)
-          this.router.navigate(['/anasehife']).then(()=>{
-            location.reload();
-          })
-        },(err:HttpErrorResponse)=>{
-          if(err.error.non_field_errors){
-            Swal.fire('Xəta', err.error.non_field_errors[0], 'error')
-          }
-        })
-      }, (error) => {
-        this.toastr.error('Kiçik xəta baş verdi. Xahiş edirik biraz sonra yenidən sınayın.', 'Xəta');
-      });
-  }
+  //       var data = {
+  //         access_token:googleUser.getAuthResponse().access_token
+  //       }
+  //       this.http.post(this.domain.url+'api/rest-auth/google/',data).subscribe((res:any)=>{
+  //         localStorage.setItem('user',res.key)
+  //         this.router.navigate(['/anasehife']).then(()=>{
+  //           location.reload();
+  //         })
+  //       },(err:HttpErrorResponse)=>{
+  //         if(err.error.non_field_errors){
+  //           Swal.fire('Xəta', err.error.non_field_errors[0], 'error')
+  //         }
+  //       })
+  //     }, (error) => {
+  //       this.toastr.error('Kiçik xəta baş verdi. Xahiş edirik biraz sonra yenidən sınayın.', 'Xəta');
+  //     });
+  // }
 
 
 

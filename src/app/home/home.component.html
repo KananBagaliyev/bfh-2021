@@ -35,7 +35,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text">
-          <h2>Premium Məhsullar</h2>
+          <h2>Təsdiqlənmİş Məhsullar</h2>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
                     <a (click)="AddToCart(premium_product.id,premium_product.sizes)" class="helper add_to_cart">
                       <fa-icon [icon]="faBag"></fa-icon> 
                     </a>
-                    <span *ngIf="premium_product.isPremium" title="Premium Məhsul" class="premium_identifier">
+                    <span *ngIf="premium_product.isPremium" title="Təsdiqlənmiş Məhsul" class="premium_identifier">
                       <fa-icon [icon]="faCrown"></fa-icon> 
                   </span>
                   </div>
@@ -90,7 +90,7 @@
         
         <div class="row" *ngIf="premium_products.length==0">
           <div class="col-12">
-            <h3 class="text-center mt-5" style="font-weight: 700;">Premium məhsul yoxdur</h3>
+            <h3 class="text-center mt-5" style="font-weight: 700;">Təsdiqlənmiş məhsul yoxdur</h3>
           </div>
         </div>
         
