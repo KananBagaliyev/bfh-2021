@@ -1348,6 +1348,21 @@ main{
             }
         }
 
+        #verified_map{
+            margin-bottom: 40px;
+            .area_row{
+                justify-content: center;
+                .single_area{
+                    height: 100px;
+                    width: 100px;
+                    // background-color: red;
+                    border: 1px solid black;
+                    margin: 2px;
+                }
+            }
+            
+        }
+
         .text, .shipping_text{
             h2{
                 display: flex;

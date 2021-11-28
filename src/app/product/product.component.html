@@ -95,6 +95,36 @@
             </div>
         </div>
 
+        <div class="container" *ngIf="product.isPremium">
+          <div class="row">
+            <div class="col-lg-12 text">
+              <h2>Monİtor olunan sahənİn xərİtəsİ</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="container" *ngIf="product.isPremium">
+          <div class="row" style="justify-content: center;">
+            <div class="col-lg-10" >
+              <div id="verified_map">
+                <!-- *ngFor = "let i of map_row" -->
+                <div class="row area_row"  *ngFor = "let row of map_Array">
+                  <div *ngFor = "let column of row" >
+                    <div style="display: flex; justify-content: center; align-items: center;" class="single_area" [ngStyle]="{'background-color':getColorCode(column.moisture)}">
+                      {{ (column.moisture*100 - column.moisture*100%1)}}%
+                    </div>
+                  </div>
+                  
+                  <!-- <div class="single_area">x</div>
+                  <div class="single_area">x</div>
+                  <div class="single_area">x</div>
+                  <div class="single_area">x</div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="container">
           <div class="row">
             <div class="col-lg-12 text">

@@ -32,6 +32,8 @@ export class ProductComponent implements OnInit {
   readonly = false;
   user_pk = 0;
 
+  map_Array = [];
+
   user_status = false;
   product_id = 0;
 
@@ -83,6 +85,7 @@ export class ProductComponent implements OnInit {
 
     this.getUserStatus();
     this.getUserName();
+    this.generateVerifiedMap(4,5)
 
     this.activatedRoute.params.subscribe(params =>{
       this.getProduct(params.product);
@@ -90,6 +93,44 @@ export class ProductComponent implements OnInit {
       
     })
 
+  }
+
+  generateVerifiedMap(row:number,column:number){
+    var r=0;
+    var c = 0;
+    var column_Arr = [];
+    var row_Arr = [];
+    while(r<row){
+      while(c < column){
+        var data = {
+          moisture:Math.floor(Math.random() * 100)/100
+        }
+        column_Arr.push(data);
+        c++;
+        console.log(data)
+      }
+      c = 0;
+      r++;
+      row_Arr.push(column_Arr);
+      column_Arr = [];
+    }
+    this.map_Array = row_Arr;
+    console.log(this.map_Array)
+    
+  }
+
+  getColorCode(moisture:number){
+    var color=""
+    // console.log(moisture)
+    if(moisture>0.5){
+      color = "rgba(0,0,255,"+moisture+")";
+    }
+    else if(moisture<=0.5){
+      color = "rgba(255,0,0,"+moisture+")";
+    }
+    // console.log(color)
+    return color;
+      
   }
 
   getProduct(slug){
