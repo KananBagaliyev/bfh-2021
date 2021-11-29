@@ -1,27 +1,18 @@
-# RevofoodAngular
+# Baku Food Hackhathon 2021
+## Team Istechlal
+Revofood Telegram Bot and ESP32 firmware
+### Team members:
+<ol>
+  <li>Turan Eminli - Captain</li>
+  <li>Fuad Mammadzada - Hardware Engineer</li>
+  <li>Kanan Bagaliyev - Software Engineer</li>
+</ol>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+## Project description:
+Main objective of this project was to implement different sensors to the sown areas to get data that how is the humidity, temprature, pH value of the soil. It would help us to determine is this product (vegetables, fruits and so on.) either organic or not. Also we have created e-commerce website for farmers to sell their products in this platform and for customers to buy products online. Customers see about soil in the page of product as a table format:
 
-## Development server
+![area_map](https://user-images.githubusercontent.com/55328259/143815240-c6a7d041-33d5-484f-bed1-cb8cac8a3429.jpg)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+As it is seen for the image, there are different colors in map and percentages. Due to it is the prototype we have only used humidity sensor to get data form hardware and display it on app. The percantages indicate humidity. If humidity is beteen 0 and 50, the color will be red and its shades. Ühen humidity is more than 50 the color will be blue and its shades.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+You can find telegram bot and hardware code of this project via clicking <a href="https://github.com/thevenus/bfh-2021">this hyperlink</a>.
