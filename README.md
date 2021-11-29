@@ -1,5 +1,5 @@
 # Baku Food Hackhathon 2021
-## Team Istechlal - Revofood Telegram Bot and ESP32 firmware
+## Team Istechlal - Revofood Web Application
 ### Team members:
 <ol>
   <li>Turan Eminli - Project Manager</li>
@@ -18,4 +18,4 @@ Main objective of our project was to implement different sensors to fields to ge
 
 As it can be seen from the image, there are different colors in map and percentages.  The percantages indicate humidity. If humidity is beteen 0 and 50, the color will be red and its shades. When humidity is more than 50 the color will be blue and its shades.
 
-You can find source code for the web application of this project via <a href="https://github.com/KananBagaliyev/bfh-2021">this link</a>.
+You can find telegram bot and hardware code of this project via <a href="https://github.com/thevenus/bfh-2021">this link</a>.
